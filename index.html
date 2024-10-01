@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senarai Aktiviti</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="assets/icon_jpk.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #782982;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        #activityList {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .activity-item {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .activity-header {
+            background-color: #782982;
+            color: #fff;
+            padding: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .activity-details {
+            display: none;
+            padding: 15px;
+            background-color: #f9f9f9;
+        }
+
+        .activity-details p {
+            margin: 5px 0;
+        }
+
+        /* Styles for header */
+        .schedule-header {
+            background-color: #782982;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        /* Styles for date, time, and day */
+        .datetime-container {
+            text-align: right;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+            padding-right: 20px;
+        }
+
+        #currentDate, #currentTime {
+            display: block; /* Display each on a new line */
+        }
+
+        #currentDate {
+            font-weight: bold;
+        }
+
+        #currentTime {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="schedule-header">
+        HEBAHAN AKTIVITI JPK
+        <!-- Home Button -->
+       <!--  <a href="menu.php" class="home-button">Home</a> -->
+    </div>
+
+    <div class="datetime-container">
+        <span id="currentDate"></span>
+        <span id="currentTime"></span>
+    </div>
+
+<h2>Senarai Aktiviti JPK</h2>
+
+<!-- List of activities -->
+<div id="activityList"></div>
+
+<script>
+    // User can manually insert multiple program details here: *JPK DIBENARKAN EDIT BAHAGIAN SINI SAHAJA*
+    const activities = [
+        {
+            name: '[SESI 1 2024/2025] APPRENTICE ENTREPRENEURSHIP (APP-PRENEUR)',
+            date: '15 APRIL 2024 - 15 JULAI 2024',
+            place: 'SEKITAR KOLEJ KEDIAMAN UiTMCPP',
+            time: '9:30 MALAM - 12:00 PAGI'
+        },
+
+        {
+            name: '[SESI 1 2024/2025] MALAM BERSAMA SRK',
+            date: '24 APRIL 2024',
+            place: 'PUSAT ISLAM UiTMCPP',
+            time: '8:00 MALAM - 10:30 MALAM'
+        },
+
+        {
+            name: '[SESI 1 2024/2025] AEROBIK PERDANA',
+            date: '4 MEI 2024 DAN 8 JUN 2024',
+            place: 'RUANG PARKIR PTAR UiTMCPP',
+            time: '9:00 PAGI - 11:00 PAGI'
+        },
+
+        {
+            name: '[SESI 1 2024/2025] QIAMULLAIL PERDANA',
+            date: '11 MEI 2024 DAN 22 JUN 2024',
+            place: 'PUSAT ISLAM UiTMCPP',
+            time: '4:00 PAGI - 8:00 PAGI'
+        },
+        // Add more programs here:
+    
+    ];
+
+    // Function to load activities from the manually inserted data
+    function loadActivities() {
+        const activityList = document.getElementById('activityList');
+        activityList.innerHTML = '';
+
+        if (activities.length === 0) {
+            activityList.innerHTML = '<p>Tiada aktiviti dijadualkan.</p>';
+        } else {
+            activities.forEach((activity, index) => {
+                const activityItem = document.createElement('div');
+                activityItem.className = 'activity-item';
+
+                // Create header
+                const header = document.createElement('div');
+                header.className = 'activity-header';
+                header.textContent = `HEBAHAN AKTIVITI KOLEJ : ${activity.name}`;
+                header.addEventListener('click', () => {
+                    const details = document.querySelector(`#details-${index}`);
+                    details.style.display = details.style.display === 'block' ? 'none' : 'block';
+                });
+
+                // Create details
+                const details = document.createElement('div');
+                details.className = 'activity-details';
+                details.id = `details-${index}`;
+                details.innerHTML = `
+                    <p>Assalamualaikum WBT & Salam UiTM Dihatiku.</p>
+                    <p>Pihak Jawatankuasa Perwakilan Kolej akan mengadakan sebuah program seperti butiran yang berikut:</p>
+                    <br>
+                    <p><strong>Nama Program: </strong> ${activity.name}</p>
+                    <p><strong>Tarikh: </strong> ${activity.date}</p>
+                    <p><strong>Tempat: </strong> ${activity.place}</p>
+                    <p><strong>Masa: </strong> ${activity.time}</p>
+                    <br>
+                    <p>Pihak kami mengucapkan ribuan terima kasih sekiranya para pelajar dapat menghadirkan diri bagi menjayakan program yang tertera.</p>
+                    <br>
+                    <p>Sekian, terima kasih.</p>
+                `;
+
+                activityItem.appendChild(header);
+                activityItem.appendChild(details);
+                activityList.appendChild(activityItem);
+            });
+        }
+    }
+
+    // Load activities when the page loads
+    window.onload = loadActivities;
+</script>
+
+<script>
+    function updateDateTime() {
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const now = new Date();
+        const formattedDate = now.toLocaleDateString('en-MY', options);
+        const formattedTime = now.toLocaleTimeString('en-MY');
+
+        document.getElementById('currentDate').innerHTML = formattedDate;
+        document.getElementById('currentTime').innerHTML = formattedTime;
+    }
+
+    // Update time every second
+    setInterval(updateDateTime, 1000);
+    updateDateTime(); // Initial call
+</script>
+
+</body>
+</html>
